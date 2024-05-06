@@ -1,3 +1,4 @@
+/*
 import mongoose from "mongoose";
 
 const { MONGODB_URI } = process.env
@@ -24,5 +25,5 @@ export const connectDB = async () => {
   else console.log("Using existing connection to database")
 }
 
-
+*/
 
