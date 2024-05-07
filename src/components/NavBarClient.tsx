@@ -6,16 +6,15 @@ import UserButton from "./UserButton";
 import { Button } from "./ui/button";
 import { signIn, useSession } from "next-auth/react";
 
-
+function SignInButton() {
+  return <Button onClick={() => signIn()}>Sign in</Button>
+}
 
 export default function NavBarClient() {
   // TODO: Show the currently logged-in user
-  //const session = await auth()
-  //const session = await getSession()
-  //const user = session?.user
   const session = useSession()
-  const user = session?.data?.user
-
+  const user = session.data?.user
+  //console.log(session.status);
   return (
     <header className="sticky top-0 bg-background px-3 shadow-sm">
       <nav className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-3">
@@ -29,6 +28,3 @@ export default function NavBarClient() {
   );
 }
 
-function SignInButton() {
-  return <Button onClick={() => signIn()}>Sign in</Button>
-}

@@ -9,25 +9,15 @@ import { cache } from "react";
 interface PageProps {
   params: { id: string };
 }
-/*
+
+connectDB()
+
 const getUser = cache(async (id: string) => {
-  return prisma.user.findUnique({
-    where: { id },
-    select: { id: true, name: true, image: true, createdAt: true },
-  });
-});
-*/
-const getUser = cache(async (id: string) => {
-  connectDB()
   const user = await User.findById(id)
   return user
 })
 
 export async function generateStaticParams() {
-  // const allUsers = await prisma.user.findMany();
-
-  // return allUsers.map(({ id }) => ({ id }));
-  connectDB()
   const users = await User.find({})
   return users.map(({ _id }) => ({ _id: _id }))
 }
@@ -42,7 +32,7 @@ export async function generateMetadata({ params: { id } }: PageProps) {
 
 export default async function Page({ params: { id } }: PageProps) {
   // Artificial delay to showcase static caching
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  //await new Promise((resolve) => setTimeout(resolve, 1500));
 
   const user = await getUser(id);
 
@@ -57,6 +47,7 @@ export default async function Page({ params: { id } }: PageProps) {
           alt="User profile picture"
           height={100}
           className="rounded-full"
+          priority={true}
         />
       )}
       <h1 className="text-center text-xl font-bold">

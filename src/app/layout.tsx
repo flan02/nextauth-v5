@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import NavBarServer from "@/components/NavBarServer";
 import { SessionProvider } from "next-auth/react";
 import NavBarClient from "@/components/NavBarClient";
 
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider> {/* provider when I work in the client side. It allows me to use useSession() */}
+        <SessionProvider> {/* provider when I work in the client side. It allows me to use useSession(). prop session converts all my component in clientside rendering. */}
           <NavBarClient />
           {children}
           <Toaster />
