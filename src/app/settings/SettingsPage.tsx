@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,16 +16,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "./actions";
 import { User } from "next-auth";
-import { useSession } from "next-auth/react";
+import getSession from "@/lib/getSession";
+
 
 interface SettingsPageProps {
   user: User
 }
 
-// TODO: When I work in the backend side I need this function as async.
+
 export default function SettingsPage({ user }: SettingsPageProps) {
   const { toast } = useToast();
-  const session = useSession()
+  // * Father of this component is server component as well then I pass the session via prop drilling
+
+
   const form = useForm<UpdateProfileValues>({
     resolver: zodResolver(updateProfileSchema),
     // TODO: Add default value from current user
@@ -37,7 +39,7 @@ export default function SettingsPage({ user }: SettingsPageProps) {
     try {
       await updateProfile(data);
       toast({ description: "Profile updated." });
-      session.update() // * Update the session to reflect the changes. Only in client-side session
+
     } catch (error) {
       toast({
         variant: "destructive",
@@ -45,6 +47,8 @@ export default function SettingsPage({ user }: SettingsPageProps) {
       });
     }
   }
+
+
 
   return (
     <main className="px-3 py-10">

@@ -1,7 +1,6 @@
 
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/user";
-
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -9,25 +8,15 @@ import { cache } from "react";
 interface PageProps {
   params: { id: string };
 }
-/*
+connectDB()
 const getUser = cache(async (id: string) => {
-  return prisma.user.findUnique({
-    where: { id },
-    select: { id: true, name: true, image: true, createdAt: true },
-  });
-});
-*/
-const getUser = cache(async (id: string) => {
-  connectDB()
+
   const user = await User.findById(id)
   return user
 })
 
 export async function generateStaticParams() {
-  // const allUsers = await prisma.user.findMany();
 
-  // return allUsers.map(({ id }) => ({ id }));
-  connectDB()
   const users = await User.find({})
   return users.map(({ _id }) => ({ _id: _id }))
 }
@@ -41,7 +30,7 @@ export async function generateMetadata({ params: { id } }: PageProps) {
 }
 
 export default async function Page({ params: { id } }: PageProps) {
-  // Artificial delay to showcase static caching
+  // ? Artificial delay to showcase static caching
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   const user = await getUser(id);

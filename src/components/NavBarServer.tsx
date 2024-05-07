@@ -23,6 +23,12 @@ export default async function NavBarServer() {
             ? <UserButton user={user} />
             : <SignInButton />
         }
+        {/* PARTIAL PRERENDERING (BETA) IT FIX THE RELOAD OF THE DATA FROM DATABASE EVERYTIME THE PAGE IS REFRESHED. SERVE THE PAGE IMMEDIATELY LIKE A CLIENTSIDE COMPONENT*/}
+        {/*
+        <Suspense>
+          <UserMenu />
+        </Suspense>
+        */}
       </nav>
     </header>
   );

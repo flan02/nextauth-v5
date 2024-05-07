@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/auth";
+//import { auth } from "@/auth";
 import getSession from "@/lib/getSession";
 import { connectDB } from "@/lib/mongodb";
 import { UpdateProfileValues, updateProfileSchema } from "@/lib/validation";

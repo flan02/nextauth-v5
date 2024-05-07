@@ -1,3 +1,4 @@
+
 import avatarPlaceholder from "@/assets/images/avatar_placeholder.png";
 import { Lock, LogOut, Settings } from "lucide-react";
 import { User } from "next-auth";
@@ -13,15 +14,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { signOut } from "next-auth/react";
-//import { signOut } from "@/auth";
+import { signOut } from "@/auth";
 
 interface UserButtonProps {
   user: User;
 }
 
-// TODO: Server component should be ASYNC-AWAIT
-export default function UserButton({ user }: UserButtonProps) {
+export default async function UserButton({ user }: UserButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -60,10 +59,16 @@ export default function UserButton({ user }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           {/* TODO: Add a logout functionality */}
-
-          <button onClick={() => signOut({ callbackUrl: '/' })} className="flex w-full items-center">
-            <LogOut className="mr-2 h-4 w-4" /> Sign Out
-          </button>
+          <form
+            action={async () => {
+              'use server';
+              await signOut();
+            }}
+          >
+            <button type="submit" className="flex w-full items-center">
+              <LogOut className="mr-2 h-4 w-4" /> Sign Out
+            </button>
+          </form>
 
         </DropdownMenuItem>
       </DropdownMenuContent>
