@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose'
 
-const tokenSchema = new Schema({
+const verificationTokenSchema = new Schema({
   identifier: {
     type: String,
     unique: true,
@@ -18,6 +18,6 @@ const tokenSchema = new Schema({
 })
 
 // * If you want to use the same model name, you validate that the model exists before using it
-const Token = models.Token || model('Token', tokenSchema)
+const VerificationToken = models.VerificationToken || model('VerificationToken', verificationTokenSchema)
 
-export default Token
+export default VerificationToken
