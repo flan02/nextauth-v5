@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import NavBar from "@/components/NavBar";
+import NavBarServer from "@/components/NavBarServer";
+import { SessionProvider } from "next-auth/react";
+import NavBarClient from "@/components/NavBarClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        {children}
-        <Toaster />
+        <SessionProvider> {/* provider when I work in the client side. It allows me to use useSession() */}
+          <NavBarClient />
+          {children}
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );

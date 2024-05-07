@@ -3,10 +3,12 @@ import { Schema, model, models } from 'mongoose'
 const tokenSchema = new Schema({
   identifier: {
     type: String,
+    unique: true,
     required: true
   },
   token: {
     type: String,
+    unique: true,
     required: true
   },
   expires: {
